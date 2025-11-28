@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Me - Ben Cep Trai</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:#111; color:#eee; line-height:1.6; overflow-x:hidden; }
+  a { text-decoration:none; color:#ff6f61; transition:0.3s; }
+  a:hover { color:#fff; }
+
+  header { text-align:center; padding:40px 20px 20px 20px; }
+  header img.profile { width:150px; height:150px; border-radius:50%; border:3px solid #ff6f61; object-fit:cover; margin-bottom:15px; }
+  header h1 { font-size:3rem; margin-bottom:10px; animation:fadeDown 1s ease forwards; }
+  header p { font-size:1.2rem; color:#ccc; animation:fadeDown 1s ease 0.3s forwards; opacity:0; }
+
+  .social-links { margin-top:20px; display:flex; justify-content:center; gap:20px; opacity:0; animation:fadeUp 1s ease 0.6s forwards; }
+  .social-links a { font-size:1.5rem; }
+
+  section { max-width:900px; margin:60px auto; padding:0 20px; opacity:0; transform:translateY(30px); transition:all 0.8s ease; }
+  section h2 { font-size:2rem; margin-bottom:20px; color:#ff6f61; }
+  section p { margin-bottom:20px; }
+
+  .projects { display:grid; grid-template-columns: repeat(auto-fit,minmax(250px,1fr)); gap:20px; }
+  .project { background:#222; padding:20px; border-radius:10px; transition:0.3s; cursor:pointer; }
+  .project:hover { transform:translateY(-5px); background:#333; }
+  .project h3 { margin-bottom:10px; color:#ff6f61; }
+
+  /* Modal */
+  .modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:1000; }
+  .modal-content { background:#222; padding:20px; border-radius:10px; max-width:600px; width:90%; position:relative; color:#eee; }
+  .modal-content h3 { margin-bottom:10px; color:#ff6f61; }
+  .close { position:absolute; top:10px; right:15px; font-size:1.5rem; cursor:pointer; }
+
+  footer { text-align:center; padding:20px 0; color:#888; }
+
+  .typing-cat { display:block; max-width:100%; border-radius:15px; margin-top:20px; }
+
+  @keyframes fadeDown { from { opacity:0; transform:translateY(-20px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+
+  section.show { opacity:1; transform:translateY(0); }
+
+</style>
+</head>
+<body>
+
+<header>
+  <img class="profile" src="https://i.pinimg.com/736x/9c/1d/9a/9c1d9a0a38d110f5d814981edb029e25.jpg" alt="Profile Picture">
+  <h1>Ben Nguyen</h1>
+  <p>Developer, Tech Enthusiast & Creative Explorer</p>
+  <div class="social-links">
+    <a href="https://github.com/benzenma123" target="_blank"><i class="fab fa-github"></i></a>
+    <a href="https://www.reddit.com/user/Critical_Self_6040" target="_blank"><i class="fab fa-reddit"></i></a>
+    <a href="mailto:haidangchauduc@gmail.com"><i class="fas fa-envelope"></i></a>
+    <a href="https://steamcommunity.com/profiles/76561199824639902/" target="_blank"><i class="fab fa-steam"></i></a>
+  </div>
+</header>
+
+<section id="about">
+  <h2>About Me</h2>
+  <p>Hello! I'm Ben, a tech enthusiast passionate about Linux, programming, servers, and AI. I love building projects, experimenting with software, and learning new skills every day. My recent project is about ad blocker for my home network but i dont have money so im kinda stuck there :)))).</p>
+  <img class="typing-cat" src="https://github.com/ViegPhunt/viegphunt/raw/main/img/cute-cat-typing.gif" alt="Typing Cat">
+</section>
+
+<section id="life">
+  <h2>My Life</h2>
+  <p>Currently exploring networking, server administration, and web development. I enjoy gaming, reading some article about Nvidia & AMD, and manage server with coding in my spare time. I'm currently learn at Portland Christian School and play soccer as a Goalie. I was born on March, 12. 2014 and I'm 11 yrs old. I had a experience of 1.5 years in programming and fixing computer part (a lil bit)</p>
+</section>
+
+<section id="projects">
+  <h2>My Projects</h2>
+  <div class="projects">
+    <div class="project" data-title="Linux Firewall Setup" data-desc="This project I use UFW for the firewall, my machine is allow to send outcoming but no incoming. Making it very safe when using at Public and protect you from Attack by Metasploit, SQLMap and Nmap. If there's any flood of http/tcp package from attacker then it will failed">
+      <h3>Linux Firewall Setup</h3>
+      <p>Click to see more info</p>
+    </div>
+    <div class="project" data-title="OS Development" data-desc="I'm currently build my OS project using Assembly only, with another OS called as 'MikuOS'. MikuOS is gonna be make from Linux kernel and source code, no based on any other linux distro. And will had it own package manager but I dont have enough time for it so the release is gonna be 12, August 2026">
+      <h3>OS Development</h3>
+      <p>Click to see more</p>
+    </div>
+    <div class="project" data-title="Home Server" data-desc="I'm currently dont have enough money so I cant continue with this project.">
+      <h3>Home Server</h3>
+      <p>Click to see more</p>
+    </div>
+  </div>
+</section>
+
+<!-- Modal -->
+<div class="modal" id="projectModal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h3 id="modalTitle"></h3>
+    <p id="modalDesc"></p>
+  </div>
+</div>
+
+<footer>
+  &copy; 2025 Ben Nguyen
+</footer>
+
+<script>
+  // Scroll animation
+  const sections = document.querySelectorAll('section');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('show');
+      }
+    });
+  }, { threshold:0.2 });
+  sections.forEach(section => observer.observe(section));
+
+  // Modal functionality
+  const projects = document.querySelectorAll('.project');
+  const modal = document.getElementById('projectModal');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalDesc = document.getElementById('modalDesc');
+  const closeBtn = document.querySelector('.close');
+
+  projects.forEach(proj => {
+    proj.addEventListener('click', () => {
+      modalTitle.textContent = proj.dataset.title;
+      modalDesc.textContent = proj.dataset.desc;
+      modal.style.display = 'flex';
+    });
+  });
+
+  closeBtn.addEventListener('click', () => { modal.style.display = 'none'; });
+  window.addEventListener('click', (e) => { if(e.target === modal) modal.style.display = 'none'; });
+</script>
+
+</body>
+</html>
+
