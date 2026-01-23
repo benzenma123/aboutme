@@ -3,56 +3,267 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>About Me - Ben Nguyen</title>
-<link rel="icon" href="favicon.ico" type="image/x-icon">
+<title>About Me - Ben Nguyen | MikuOS</title>
+
+<link rel="icon" href="favicon.ico">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
 <style>
-  * { margin:0; padding:0; box-sizing:border-box; }
-  body { font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:#111; color:#eee; line-height:1.6; overflow-x:hidden; }
-  a { text-decoration:none; color:#ff6f61; transition:0.3s; }
-  a:hover { color:#fff; }
+/* ===== MIKUOS PALETTE ===== */
+:root {
+  --miku-main: #39f5e9;
+  --miku-soft: #9ffcff;
+  --miku-dark: #050c10;
+  --card-bg: rgba(15, 40, 48, 0.75);
+  --glow: 0 0 18px rgba(57,245,233,0.6);
+}
 
-  header { text-align:center; padding:40px 20px 20px 20px; }
-  header img.profile { width:150px; height:150px; border-radius:50%; border:3px solid #ff6f61; object-fit:cover; margin-bottom:15px; }
-  header h1 { font-size:3rem; margin-bottom:10px; animation:fadeDown 1s ease forwards; }
-  header p { font-size:1.2rem; color:#ccc; animation:fadeDown 1s ease 0.3s forwards; opacity:0; }
+* {
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
 
-  .social-links { margin-top:20px; display:flex; justify-content:center; gap:20px; opacity:0; animation:fadeUp 1s ease 0.6s forwards; }
-  .social-links a { font-size:1.5rem; }
+body {
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background:
+    radial-gradient(circle at top, #0e3a42, #03070a 70%);
+  color:#eaffff;
+  line-height:1.7;
+  overflow-x:hidden;
+  position:relative;
+}
 
-  section { max-width:900px; margin:60px auto; padding:0 20px; opacity:0; transform:translateY(30px); transition:all 0.8s ease; }
-  section h2 { font-size:2rem; margin-bottom:20px; color:#ff6f61; }
-  section p { margin-bottom:20px; }
+/* ===== JP BACKGROUND TEXT ===== */
+.jp-overlay {
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+}
 
-  .projects { display:grid; grid-template-columns: repeat(auto-fit,minmax(250px,1fr)); gap:20px; }
-  .project { background:#222; padding:20px; border-radius:10px; transition:0.3s; cursor:pointer; }
-  .project:hover { transform:translateY(-5px); background:#333; }
-  .project h3 { margin-bottom:10px; color:#ff6f61; }
+.jp-overlay span {
+  position:absolute;
+  font-size:5rem;
+  font-weight:800;
+  color:rgba(57,245,233,0.06);
+  text-shadow:0 0 40px rgba(57,245,233,0.15);
+  animation:floatJP 25s linear infinite;
+}
 
-  /* Modal */
-  .modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:1000; }
-  .modal-content { background:#222; padding:20px; border-radius:10px; max-width:600px; width:90%; position:relative; color:#eee; }
-  .modal-content h3 { margin-bottom:10px; color:#ff6f61; }
-  .close { position:absolute; top:10px; right:15px; font-size:1.5rem; cursor:pointer; }
+.jp-overlay span:nth-child(1){ top:10%; left:5%; }
+.jp-overlay span:nth-child(2){ top:40%; right:5%; }
+.jp-overlay span:nth-child(3){ bottom:10%; left:30%; }
 
-  footer { text-align:center; padding:20px 0; color:#888; }
+@keyframes floatJP {
+  from { transform:translateY(0); }
+  to { transform:translateY(-120px); }
+}
 
-  .typing-cat { display:block; max-width:100%; border-radius:15px; margin-top:20px; }
+/* ===== LINKS ===== */
+a {
+  color:var(--miku-main);
+  text-decoration:none;
+  transition:0.3s;
+}
+a:hover {
+  color:#fff;
+  text-shadow:var(--glow);
+}
 
-  @keyframes fadeDown { from { opacity:0; transform:translateY(-20px); } to { opacity:1; transform:translateY(0); } }
-  @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+/* ===== HEADER ===== */
+header {
+  text-align:center;
+  padding:50px 20px 30px;
+  position:relative;
+  z-index:1;
+}
 
-  section.show { opacity:1; transform:translateY(0); }
+header img.profile {
+  width:160px;
+  height:160px;
+  border-radius:50%;
+  border:3px solid var(--miku-main);
+  box-shadow:var(--glow);
+  object-fit:cover;
+  margin-bottom:20px;
+}
 
+header h1 {
+  font-size:3rem;
+  color:var(--miku-main);
+  text-shadow:var(--glow);
+}
+
+header p {
+  font-size:1.2rem;
+  color:#bffcff;
+}
+
+/* ===== MIKUOS TAG ===== */
+.mikuos-tag {
+  margin-top:10px;
+  font-size:0.9rem;
+  letter-spacing:2px;
+  color:#9ffcff;
+  opacity:0.85;
+}
+
+/* ===== SOCIAL ===== */
+.social-links {
+  margin-top:25px;
+  display:flex;
+  justify-content:center;
+  gap:25px;
+}
+
+.social-links a {
+  font-size:1.6rem;
+}
+
+/* ===== SECTIONS ===== */
+section {
+  max-width:900px;
+  margin:70px auto;
+  padding:30px;
+  background:linear-gradient(
+    145deg,
+    rgba(20,60,70,0.6),
+    rgba(5,15,20,0.7)
+  );
+  border-radius:22px;
+  backdrop-filter:blur(6px);
+  box-shadow:0 0 25px rgba(57,245,233,0.15);
+  opacity:0;
+  transform:translateY(30px);
+  transition:all 0.8s ease;
+  position:relative;
+  z-index:1;
+}
+
+section.show {
+  opacity:1;
+  transform:translateY(0);
+}
+
+section h2 {
+  font-size:2.1rem;
+  margin-bottom:20px;
+  color:var(--miku-main);
+}
+
+/* ===== PROJECTS ===== */
+.projects {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:25px;
+}
+
+.project {
+  background:var(--card-bg);
+  padding:25px;
+  border-radius:18px;
+  border:1px solid rgba(57,245,233,0.3);
+  cursor:pointer;
+  position:relative;
+  overflow:hidden;
+  transition:0.35s ease;
+}
+
+/* 🔷 MIKUOS BADGE (FOR THE LOVE OF GOD, HERE IT IS) */
+.project::after {
+  content: attr(data-badge);
+  position:absolute;
+  top:12px;
+  right:-40px;
+  transform:rotate(35deg);
+  background:var(--miku-main);
+  color:#002;
+  font-size:0.65rem;
+  padding:4px 45px;
+  font-weight:700;
+  letter-spacing:1px;
+  box-shadow:var(--glow);
+}
+
+
+.project:hover {
+  transform:translateY(-8px) scale(1.02);
+  box-shadow:var(--glow);
+}
+
+.project h3 {
+  margin-bottom:10px;
+  color:var(--miku-main);
+}
+
+.project p {
+  color:#c9ffff;
+}
+
+/* ===== MODAL ===== */
+.modal {
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.85);
+  justify-content:center;
+  align-items:center;
+  z-index:1000;
+}
+
+.modal-content {
+  background:linear-gradient(145deg,#0f3a42,#07161c);
+  padding:30px;
+  border-radius:20px;
+  max-width:600px;
+  width:90%;
+  border:1px solid rgba(57,245,233,0.4);
+  box-shadow:var(--glow);
+  position:relative;
+}
+
+.close {
+  position:absolute;
+  top:12px;
+  right:18px;
+  font-size:1.6rem;
+  cursor:pointer;
+}
+
+/* ===== FOOTER ===== */
+footer {
+  text-align:center;
+  padding:25px 0;
+  color:#8ffcff;
+  opacity:0.7;
+}
+
+/* ===== CAT ===== */
+.typing-cat {
+  max-width:100%;
+  border-radius:20px;
+  margin-top:25px;
+  box-shadow:var(--glow);
+}
 </style>
 </head>
+
 <body>
 
+<!-- JP TEXT OVERLAY -->
+<div class="jp-overlay">
+  <span>初音ミク</span>
+  <span>ミクOS</span>
+  <span>未来技術</span>
+</div>
+
 <header>
-  <img class="profile" src="https://i.pinimg.com/736x/9c/1d/9a/9c1d9a0a38d110f5d814981edb029e25.jpg" alt="Profile Picture">
+  <img class="profile" src="https://i.pinimg.com/736x/9c/1d/9a/9c1d9a0a38d110f5d814981edb029e25.jpg">
   <h1>Ben Nguyen</h1>
-  <p>Developer, Tech Enthusiast & Creative Explorer</p>
+  <p>Developer • Linux Nerd • Cyber Builder</p>
+  <div class="mikuos-tag">POWERED BY MIKUOS</div>
+
   <div class="social-links">
     <a href="https://github.com/benzenma123" target="_blank"><i class="fab fa-github"></i></a>
     <a href="https://www.reddit.com/user/Critical_Self_6040" target="_blank"><i class="fab fa-reddit"></i></a>
@@ -60,60 +271,76 @@
     <a href="https://steamcommunity.com/profiles/76561199824639902/" target="_blank"><i class="fab fa-steam"></i></a>
   </div>
 </header>
-
 <section id="about">
   <h2>About Me</h2>
-  <p>Hello! I'm Ben, a tech enthusiast passionate about Linux, programming, servers, and AI. I love building projects, experimenting with software, and learning new skills every day. My recent project is about ad blocker for my home network but i dont have money so im kinda stuck there :)))).</p>
-  <center><img class="typing-cat" src="https://github.com/ViegPhunt/viegphunt/raw/main/img/cute-cat-typing.gif" alt="Typing Cat"></center>
+  <p>
+    Hello! I'm Ben, a tech enthusiast passionate about Linux, programming,
+    servers, and AI. I love building projects, experimenting with software,
+    and learning new skills every day.
+  </p>
+  <center>
+    <img class="typing-cat"
+      src="https://github.com/ViegPhunt/viegphunt/raw/main/img/cute-cat-typing.gif"
+      alt="Typing Cat">
+  </center>
 </section>
-
 <section id="life">
   <h2>My Life</h2>
-  <p>Currently exploring networking, server administration, and web development. I enjoy gaming, reading some article about Nvidia & AMD, and manage server with coding in my spare time. I'm currently learn at Portland Christian School and play soccer as a Goalie. I was born on March, 12. 2014 and I'm 11 yrs old. I had a experience of 1.5 years in programming and fixing computer part (a lil bit)</p>
+  <p>
+    Currently exploring networking, server administration, and web development. 
+    I enjoy gaming, reading articles about Nvidia & AMD, and managing servers with coding in my spare time. 
+    I'm currently learning at Portland Christian School and play soccer as a Goalie. 
+    I was born on March 12, 2014 and I'm 11 yrs old. 
+    I have 1.5 years of experience in programming and fixing computer parts (a little bit).
+  </p>
 </section>
 
 <section id="projects">
   <h2>My Projects</h2>
   <div class="projects">
-    <div class="project" data-title="Linux Firewall Setup" data-desc="This project I use UFW for the firewall, my machine is allow to send outcoming but no incoming. Making it very safe when using at Public and protect you from Attack by Metasploit, SQLMap and Nmap. If there's any flood of http/tcp package from attacker then it will failed">
+    <div class="project" data-title="Linux Firewall Setup" data-desc="This project I use UFW for the firewall, my machine is allow to send outcoming but no incoming. Making it very safe when using at Public and protect you from Attack by Metasploit, SQLMap and Nmap. If there's any flood of http/tcp package from attacker then it will failed" data-badge="Firewall">
       <h3>Linux Firewall Setup</h3>
       <p>Click to see more info</p>
     </div>
-    <div class="project" data-title="OS Development" data-desc="I'm currently build my OS project using Assembly only, with another OS called as 'MikuOS'. MikuOS is gonna be make from Linux kernel and source code, no based on any other linux distro. And will had it own package manager but I dont have enough time for it so the release is gonna be 12, August 2026">
+    <div class="project" data-title="OS Development" data-desc="I'm currently build my OS project using Assembly only, with another OS called as 'MikuOS'. MikuOS is gonna be make from Linux kernel and source code, no based on any other linux distro. And will had it own package manager but I dont have enough time for it so the release is gonna be 12, August 2026" data-badge="MikuOS">
       <h3>OS Development</h3>
       <p>Click to see more</p>
     </div>
-    <div class="project" data-title="Home Server" data-desc="I'm currently dont have enough money so I cant continue with this project.">
+    <div class="project" data-title="Home Server" data-desc="I'm currently using my old pc as my home server (NAS) with TrueNAS Scale and it perform very good with transfering file and lightweight projects" data-badge="Server">
       <h3>Home Server</h3>
       <p>Click to see more</p>
     </div>
-    <div class="project" data-title="Game Development" data-desc="I'm currently works on Games project too but it took kinda long so please be patient, my games project is about bring Brother's Hai Pho Restaurant to AUR of Arch Linux so everybody can try it (i know he already make the one for linux but that one need manual installtion)">
+    <div class="project" data-title="Game Development" data-desc="I'm currently works on Games project too but it took kinda long so please be patient, my games project is about bring Brother's Hai Pho Restaurant to AUR of Arch Linux so everybody can try it (i know he already make the one for linux but that one need manual installtion)" data-badge="GameDev">
       <h3>Game Development</h3>
       <p>Click to see more</p>
     </div>
-    <div class="project" data-title="Manage Virtual Machine" data-desc="So i do manage virtual machine for all of my project. I do Minecraft Server, TrueNAS Server....etc, and i do setup Kali Linux environment for testing">
+    <div class="project" data-title="Manage Virtual Machine" data-desc="So i do manage virtual machine for all of my project. I do Minecraft Server, TrueNAS Server....etc, and i do setup Kali Linux environment for testing" data-badge="VM">
       <h3>Manage VM</h3>
       <p>Click to see more</p>
     </div>
-    <div class="project" data-title="Kali Pentester" data-desc="I've been using Kali for a long time for Pentesting with testing machine firewall, and help to make my other site stronger with stronger firewall. And my website do crash sometime but it really doesnt matter because im using those site just for testing my html file">
+    <div class="project" data-title="Kali Pentester" data-desc="I've been using Kali for a long time for Pentesting with testing machine firewall, and help to make my other site stronger with stronger firewall. And my website do crash sometime but it really doesnt matter because im using those site just for testing my html file" data-badge="Pentest">
       <h3>Kali Pentester</h3>
       <p>Click to see more</p>
     </div>
-   <div class="project" data-title="New Firewall Tool (Firegex)" data-desc="Hello guys, in this project. I'm using Firegex (i use it from ViegPhunt github repo) for a new firewall and IP Protection. Firegex using GEX as the code to build IP Protection (if you search on google then you likely dont find it cuz it not using too much) making it super safe for protection if the attacker using strong tools (likely from kali linux or blackarch). Use it alongside with UFW (Uncomplicated Firewall) make it safe like North Korea machine, it still allow you to send outcoming (like using social media) but block incoming directly and quietly">
+   <div class="project" data-title="New Firewall Tool (Firegex)" data-desc="Hello guys, in this project. I'm using Firegex (i use it from ViegPhunt github repo) for a new firewall and IP Protection. Firegex using GEX as the code to build IP Protection (if you search on google then you likely dont find it cuz it not using too much) making it super safe for protection if the attacker using strong tools (likely from kali linux or blackarch). Use it alongside with UFW (Uncomplicated Firewall) make it safe like North Korea machine, it still allow you to send outcoming (like using social media) but block incoming directly and quietly" data-badge="Firegex">
     <h3>Firegex</h3>
     <p>Click to see more</p>
    </div>
-   <div class="project" data-title="Hackintosh on my ASUS Zenbook UX425EA" data-desc="I'm currently working on hackintosh with OpenCore on my ASUS Zenbook UX425EA and it took pretty long to get it work but still no graphic acceleration yet (QE/CI). The reason why i use OpenCore instead of Clover is because OpenCore is more stable and reliable on laptop instead of Clover. Clover is outdated, old as fudge and unreliable. And OpenCore is more modern and updated frequently by Dortania team. If you want to build Hackintosh then i recommend you to use OpenCore instead of Clover. But if you had a CoffeeLake machine then that will be easier because i got an Tiger Lake machine it got no support on MacOS but who care? Spoofing is the key to success. visit my github repo thru https://github.com/benzenma123/EFI-For-ASUS-Zenbook-UX425EA/ for more info">
+   <div class="project" data-title="Hackintosh on my ASUS Zenbook UX425EA" data-desc="I'm currently working on hackintosh with OpenCore on my ASUS Zenbook UX425EA and it took pretty long to get it work but still no graphic acceleration yet (QE/CI). The reason why i use OpenCore instead of Clover is because OpenCore is more stable and reliable on laptop instead of Clover. Clover is outdated, old as fudge and unreliable. And OpenCore is more modern and updated frequently by Dortania team. If you want to build Hackintosh then i recommend you to use OpenCore instead of Clover. But if you had a CoffeeLake machine then that will be easier because i got an Tiger Lake machine it got no support on MacOS but who care? Spoofing is the key to success. visit my github repo thru https://github.com/benzenma123/EFI-For-ASUS-Zenbook-UX425EA/ for more info" data-badge="Hackintosh">
     <h3>Hackintosh on my ASUS Zenbook UX425EA</h3>
     <p>Click to see more</p>
    </div>
-   <div class="project" data-title="Run AI Locally w/out Internet" data-desc="I'm currently build an Python script that will downloads an AI Model to your machine, extract it and run it for you after installation. But remember what AI Model you were installing or else you will ended up install other AI Model :). Everytime you run the script, just choose the AI Model that you already install and it launch for you, the continue where you left off option is unavalible right now because it still in beta version">
+   <div class="project" data-title="Run AI Locally w/out Internet" data-desc="I'm currently build an Python script that will downloads an AI Model to your machine, extract it and run it for you after installation. But remember what AI Model you were installing or else you will ended up install other AI Model :). Everytime you run the script, just choose the AI Model that you already install and it launch for you, the continue where you left off option is unavalible right now because it still in beta version" data-badge="AI Local">
     <h3>Run AI Locally w/out Internet</h3>
     <p>Click to see more</p>
   </div>
 </section>
+<!-- ===== FOOTER ===== -->
+<footer>
+  &copy; 2025 Ben Nguyen
+</footer>
 
-<!-- Modal -->
+<!-- ===== MODAL ===== -->
 <div class="modal" id="projectModal">
   <div class="modal-content">
     <span class="close">&times;</span>
@@ -122,12 +349,9 @@
   </div>
 </div>
 
-<footer>
-  &copy; 2025 Ben Nguyen
-</footer>
-
+<!-- ===== JS ===== -->
 <script>
-  // Scroll animation
+  // Scroll animation: show sections when they appear
   const sections = document.querySelectorAll('section');
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
@@ -135,10 +359,10 @@
         entry.target.classList.add('show');
       }
     });
-  }, { threshold:0.2 });
+  }, { threshold: 0.15 });
   sections.forEach(section => observer.observe(section));
 
-  // Modal functionality
+  // Modal functionality for project cards
   const projects = document.querySelectorAll('.project');
   const modal = document.getElementById('projectModal');
   const modalTitle = document.getElementById('modalTitle');
@@ -153,11 +377,14 @@
     });
   });
 
-  closeBtn.addEventListener('click', () => { modal.style.display = 'none'; });
-  window.addEventListener('click', (e) => { if(e.target === modal) modal.style.display = 'none'; });
+  closeBtn.addEventListener('click', () => modal.style.display = 'none');
+  window.addEventListener('click', (e) => {
+    if(e.target === modal) modal.style.display = 'none';
+  });
 </script>
 
 </body>
 </html>
 
-// If you plan to use my html file for your own then feel free to use it, i dont mind
+
+
