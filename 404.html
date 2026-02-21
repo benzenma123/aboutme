@@ -1,64 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>404 - Page Not Found</title>
-<style>
-  body {
-    background: #111;
-    color: #eee;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    text-align: center;
-    padding: 50px 20px;
-  }
-  h1 {
-    font-size: 6rem;
-    color: #ff6f61;
-    margin-bottom: 10px;
-  }
-  h2 {
-    color: #ccc;
-    margin-bottom: 30px;
-  }
-  a {
-    color: #ff6f61;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  a:hover {
-    color: #fff;
-  }
-  .memes {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
-    max-width: 1000px;
-    margin: 0 auto;
-  }
-  .memes img {
-    width: 100%;
-    border-radius: 15px;
-    transition: transform 0.3s;
-  }
-  .memes img:hover {
-    transform: scale(1.1);
-  }
-  footer {
-    margin-top: 40px;
-    color: #888;
-  }
-</style>
+    <meta charset="UTF-8">
+    <title>404 - Connection Terminated</title>
+    <link href="https://fonts.googleapis.com/css?family=Arvo" rel="stylesheet">
+    <style>
+        /* Exact styles from your provided code snippet */
+        .page_404 {
+            padding: 40px 0; 
+            background: #fff; 
+            font-family: 'Arvo', serif;
+        }
+
+        .four_zero_four_bg {
+            /* Using the exact image URL from your source */
+            background-image: url(https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif);
+            height: 400px;
+            background-position: center;
+            
+            /* FIX: Prevents the image from repeating 3 times */
+            background-repeat: no-repeat;
+            background-size: contain; 
+            
+            position: relative;
+            text-align: center;
+        }
+
+        .four_zero_four_bg h1 {
+            font-size: 80px;
+            margin: 0;
+        }
+
+        @keyframes bonk-animation {
+            0%, 70% { transform: rotate(45deg); opacity: 0; }
+            80% { transform: rotate(45deg); opacity: 1; }
+            90% { transform: rotate(-20deg); opacity: 1; } /* The Bonk */
+            100% { transform: rotate(-20deg); opacity: 0; }
+        }
+
+        /* Text and Button Styles from your screenshot */
+        .content_box_404 {
+            margin-top: -50px;
+            text-align: center;
+        }
+
+        .link_404 {
+            color: #fff !important;
+            padding: 10px 20px;
+            background: #39ac31; /* Green button from the video */
+            margin: 20px 0;
+            display: inline-block;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .text-center { text-align: center; }
+    </style>
 </head>
 <body>
 
-<h1>404</h1>
-<h2>Oops! Page not found...</h2>
-<p>But don’t worry, just press <a href="/">home</a> to get back😎</p>
+    <section class="page_404">
+        <div class="text-center">
+            <div class="four_zero_four_bg">
+                <h1>404</h1>
+                <div class="hammer"></div>
+            </div>
 
-<p style="margin-top:30px;">Go back <a href="/">home</a> or if you like then just stay at here a lil while!</p>
-
-<footer>&copy; 2025 Ben Nguyen</footer>
+            <div class="content_box_404">
+                <h3>Look like you're lost</h3>
+                <p>The caveman is eating the fiber cable. <br>
+                Good luck try to restore your connection.</p>
+                <a href="/" class="link_404">Go to Home</a>
+            </div>
+        </div>
+    </section>
 
 </body>
 </html>
