@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact - Ben Nguyen</title>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --nord0: #2e3440; 
+  --nord1: rgba(59, 66, 82, 0.75); 
+  --nord3: rgba(76, 86, 106, 0.4); 
+  --nord4: #d8dee9; 
+  --nord6: #eceff4; 
+  --nord7: #8fbcbb; 
+  --nord8: #88c0d0; 
+  --glass-blur: blur(14px);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: radial-gradient(circle at 100% 100%, #3b4252 0%, #2e3440 100%);
+  background-attachment: fixed;
+  color: var(--nord4);
+  display: flex; justify-content: center; align-items: center;
+  min-height: 100vh;
+}
+
+.contact-card {
+  max-width: 500px; width: 90%;
+  background: var(--nord1); backdrop-filter: var(--glass-blur);
+  padding: 50px; border-radius: 24px; border: 1px solid var(--nord3);
+  text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+}
+
+h1 { font-size: 2.5rem; color: var(--nord6); margin-bottom: 10px; }
+p.subtitle { font-family: 'JetBrains Mono', monospace; color: var(--nord8); margin-bottom: 40px; }
+
+.links-grid { display: flex; flex-direction: column; gap: 15px; }
+
+.contact-link {
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(46, 52, 64, 0.4); padding: 18px 25px;
+  border-radius: 12px; border: 1px solid var(--nord3);
+  color: var(--nord4); text-decoration: none;
+  font-family: 'JetBrains Mono', monospace; transition: 0.3s;
+}
+
+.contact-link i { font-size: 1.4rem; color: var(--nord7); }
+
+.contact-link:hover {
+  background: rgba(143, 188, 187, 0.1); border-color: var(--nord7);
+  transform: translateX(5px);
+}
+
+.back-btn {
+  margin-top: 40px; display: inline-block;
+  color: var(--nord3); text-decoration: none;
+  font-size: 0.9rem; transition: 0.3s;
+}
+.back-btn:hover { color: var(--nord8); }
+
+</style>
+</head>
+<body>
+
+<div class="contact-card">
+    <h1>Connect</h1>
+    <p class="subtitle">// Socials & Inquiries</p>
+    
+    <div class="links-grid">
+        <a href="https://github.com/benzenma123" class="contact-link" target="_blank">
+            <span>GitHub</span> <i class="fab fa-github"></i>
+        </a>
+        <a href="https://www.reddit.com/user/Critical_Self_6040" class="contact-link" target="_blank">
+            <span>Reddit</span> <i class="fab fa-reddit"></i>
+        </a>
+        <a href="mailto:haidangchauduc@gmail.com" class="contact-link">
+            <span>Email</span> <i class="fas fa-envelope"></i>
+        </a>
+        <a href="https://steamcommunity.com/profiles/76561199824639902/" class="contact-link" target="_blank">
+            <span>Steam</span> <i class="fab fa-steam"></i>
+        </a>
+    </div>
+
+    <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Home</a>
+</div>
+
+</body>
+</html>
