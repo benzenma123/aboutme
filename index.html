@@ -1,200 +1,267 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>About Me - Ben Nguyen</title>
-
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
-
-<style>
-/* ===== NORDIC TRANSPARENCY PALETTE ===== */
-:root {
-  --nord0: #2e3440; 
-  --nord1: rgba(59, 66, 82, 0.75); 
-  --nord2: rgba(67, 76, 94, 0.85); 
-  --nord3: rgba(76, 86, 106, 0.4); 
-  --nord4: #d8dee9; 
-  --nord6: #eceff4; 
-  --nord7: #8fbcbb; 
-  --nord8: #88c0d0; 
-  --nord9: #81a1c1; 
-  --glass-blur: blur(14px);
-}
-
-* { margin:0; padding:0; box-sizing:border-box; }
-
-body {
-  font-family: 'Inter', sans-serif;
-  background: radial-gradient(circle at 0% 0%, #3b4252 0%, #2e3440 100%);
-  background-attachment: fixed;
-  color: var(--nord4);
-  line-height: 1.7;
-  overflow-x: hidden;
-  padding-top: 70px; 
-}
-
-/* ===== TOP BAR ===== */
-.top-bar {
-  position: fixed;
-  top: 0; left: 0; width: 100%; height: 65px;
-  background: rgba(46, 52, 64, 0.6);
-  backdrop-filter: var(--glass-blur);
-  border-bottom: 1px solid var(--nord3);
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 40px; z-index: 2000;
-}
-
-.top-bar .site-url {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.95rem; color: var(--nord8);
-}
-
-.top-bar .nav-links a.contact-btn {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.85rem; color: #000;
-  text-decoration: none; background: var(--nord7);
-  padding: 8px 20px; border-radius: 8px; font-weight: 600;
-  transition: 0.3s;
-}
-
-.top-bar .nav-links a.contact-btn:hover {
-  background: var(--nord8);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(143, 188, 187, 0.4);
-}
-
-/* ===== HEADER ===== */
-header { text-align:center; padding:60px 20px 40px; }
-
-header img.profile {
-  width:140px; height:140px; border-radius:24px;
-  border: 2px solid var(--nord7); object-fit:cover;
-  margin-bottom:20px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-}
-
-header h1 { font-weight: 700; font-size:3rem; color: var(--nord6); letter-spacing: -1px; }
-header p { font-family: 'JetBrains Mono', monospace; font-size:0.9rem; color: var(--nord8); }
-
-/* ===== SECTIONS ===== */
-section {
-  max-width:900px; margin:40px auto; padding:40px;
-  background: var(--nord1); backdrop-filter: var(--glass-blur);
-  border-radius:16px; border: 1px solid var(--nord3);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-  opacity:0; transform:translateY(20px); transition: all 0.6s ease-out;
-}
-section.show { opacity:1; transform:translateY(0); }
-section h2 { font-size:1.8rem; margin-bottom:25px; color: var(--nord8); display: flex; align-items: center; gap: 15px; }
-section h2::after { content: ""; height: 1px; flex-grow: 1; background: var(--nord3); }
-
-/* ===== PROJECTS GRID ===== */
-.projects { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px; }
-.project {
-  background: rgba(46, 52, 64, 0.4); padding:25px; border-radius:12px;
-  border: 1px solid var(--nord3); cursor:pointer; position:relative; transition:0.3s ease;
-}
-.project::after {
-  content: attr(data-badge); position:absolute; top:12px; right:12px;
-  background: rgba(129, 161, 193, 0.2); color: var(--nord6);
-  font-size:0.6rem; padding:3px 10px; border-radius: 4px;
-  border: 1px solid var(--nord9); font-weight:700; text-transform: uppercase;
-}
-.project:hover { border-color: var(--nord7); background: var(--nord2); transform: scale(1.02); }
-.project h3 { margin-bottom:10px; color: var(--nord6); font-size: 1.1rem; }
-.project p { color: var(--nord8); font-size: 0.8rem; }
-
-/* ===== MODAL ===== */
-.modal {
-  display:none; position:fixed; inset:0;
-  background: rgba(46, 52, 64, 0.85); backdrop-filter: blur(10px);
-  justify-content:center; align-items:center; z-index:3000;
-}
-.modal-content {
-  background: #3b4252; padding:40px; border-radius:20px;
-  max-width:600px; width:90%; border: 1px solid var(--nord7); position:relative;
-}
-.close { position:absolute; top:20px; right:25px; font-size:1.5rem; color: var(--nord4); cursor:pointer; }
-
-footer { text-align:center; padding:60px 0; color: var(--nord3); font-family: 'JetBrains Mono', monospace; font-size:0.8rem; }
-</style>
-</head>
-<body>
-
-<div class="top-bar">
-    <div class="site-url">benzenma123.github.io</div>
-    <div class="nav-links">
-        <a href="contact.html" class="contact-btn">Contact</a>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#d9ff43" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <meta
+      name="description"
+      content="Ben Nguyen is a developer in Portland building operating systems, servers, security tools, and unusual computer projects."
+    />
+    <title>Ben Nguyen — Developer & Systems Builder</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="loader" aria-hidden="true">
+      <div class="loader__top">
+        <span>BEN®</span>
+        <span>PORTFOLIO / 2026</span>
+      </div>
+      <div class="loader__number">00</div>
+      <div class="loader__track"><span></span></div>
     </div>
-</div>
 
-<header>
-  <img class="profile" src="https://i.pinimg.com/736x/9c/1d/9a/9c1d9a0a38d110f5d814981edb029e25.jpg">
-  <h1>Ben Nguyen</h1>
-  <p>// Developer • Linux Nerd • Cyber Builder</p>
-</header>
+    <div class="noise" aria-hidden="true"></div>
+    <div class="cursor" aria-hidden="true"><span>VIEW</span></div>
 
-<section id="about">
-  <h2>About Me</h2>
-  <p>Hello! I'm Ben, a tech enthusiast passionate about Linux, programming, servers, and AI. I love building projects, experimenting with software, and learning new skills every day.</p>
-</section>
+    <header class="nav">
+      <a class="nav__brand magnetic" href="#top" aria-label="Ben Nguyen, home">
+        <span>BN</span><sup>®</sup>
+      </a>
+      <div class="nav__status">
+        <i></i>
+        <span>Portland, OR</span>
+        <time id="local-time">00:00:00</time>
+      </div>
+      <nav aria-label="Main navigation">
+        <a class="nav__link magnetic" href="#about">About</a>
+        <a class="nav__link magnetic" href="#work">Projects</a>
+        <a class="nav__link nav__link--round magnetic" href="#contact">Let’s talk <span>↗</span></a>
+      </nav>
+    </header>
 
-<section id="life">
-  <h2>My Life</h2>
-  <p>Currently exploring networking, server administration, and web development. I enjoy gaming, reading articles about Nvidia & AMD, and managing servers with coding in my spare time. I'm currently learning at Portland Christian School and play soccer as a Goalie. I was born on March 12, 2014 and I'm 11 yrs old. I have 1.5 years of experience in programming and fixing computer parts (a little bit).</p>
-</section>
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero__meta reveal">
+          <p>Independent developer</p>
+          <p>Systems / Linux / Security</p>
+        </div>
 
-<section id="projects">
-  <h2>My Projects</h2>
-  <div class="projects">
-    <div class="project" data-title="Linux Firewall Setup" data-desc="This project I use UFW for the firewall, my machine is allow to send outcoming but no incoming. Making it very safe when using at Public and protect you from Attack by Metasploit, SQLMap and Nmap. If there's any flood of http/tcp package from attacker then it will failed" data-badge="Firewall"><h3>Linux Firewall Setup</h3><p>Click to see more info</p></div>
-    <div class="project" data-title="OS Development" data-desc="I'm currently build my OS project using Assembly only, with another OS called as 'MikuOS'. MikuOS is gonna be make from Linux kernel and source code, no based on any other linux distro. And will had it own package manager but I dont have enough time for it so the release is gonna be 12, August 2026" data-badge="MikuOS"><h3>OS Development</h3><p>Click to see more</p></div>
-    <div class="project" data-title="Home Server" data-desc="I'm currently using my old pc as my home server (NAS) with TrueNAS Scale and it perform very good with transfering file and lightweight projects" data-badge="Server"><h3>Home Server</h3><p>Click to see more</p></div>
-    <div class="project" data-title="Game Development" data-desc="I'm currently works on Games project too but it took kinda long so please be patient, my games project is about bring Brother's Hai Pho Restaurant to AUR of Arch Linux so everybody can try it (i know he already make the one for linux but that one need manual installtion)" data-badge="GameDev"><h3>Game Development</h3><p>Click to see more</p></div>
-    <div class="project" data-title="Manage Virtual Machine" data-desc="So i do manage virtual machine for all of my project. I do Minecraft Server, TrueNAS Server....etc, and i do setup Kali Linux environment for testing" data-badge="VM"><h3>Manage VM</h3><p>Click to see more</p></div>
-    <div class="project" data-title="Kali Pentester" data-desc="I've been using Kali for a long time for Pentesting with testing machine firewall, and help to make my other site stronger with stronger firewall. And my website do crash sometime but it really doesnt matter because im using those site just for testing my html file" data-badge="Pentest"><h3>Kali Pentester</h3><p>Click to see more</p></div>
-    <div class="project" data-title="New Firewall Tool (Firegex)" data-desc="Hello guys, in this project. I'm using Firegex (i use it from ViegPhunt github repo) for a new firewall and IP Protection. Firegex using GEX as the code to build IP Protection (if you search on google then you likely dont find it cuz it not using too much) making it super safe for protection if the attacker using strong tools (likely from kali linux or blackarch). Use it alongside with UFW (Uncomplicated Firewall) make it safe like North Korea machine, it still allow you to send outcoming (like using social media) but block incoming directly and quietly" data-badge="Firegex"><h3>Firegex</h3><p>Click to see more</p></div>
-    <div class="project" data-title="Hackintosh on my ASUS Zenbook UX425EA" data-desc="I'm currently working on hackintosh with OpenCore on my ASUS Zenbook UX425EA and it took pretty long to get it work but still no graphic acceleration yet (QE/CI). The reason why i use OpenCore instead of Clover is because OpenCore is more stable and reliable on laptop instead of Clover. Clover is outdated, old as fudge and unreliable. And OpenCore is more modern and updated frequently by Dortania team. If you want to build Hackintosh then i recommend you to use OpenCore instead of Clover. But if you had a CoffeeLake machine then that will be easier because i got an Tiger Lake machine it got no support on MacOS but who care? Spoofing is the key to success. visit my github repo thru https://github.com/benzenma123/EFI-For-ASUS-Zenbook-UX425EA/ for more info" data-badge="Hackintosh"><h3>Hackintosh on my ASUS Zenbook UX425EA</h3><p>Click to see more</p></div>
-    <div class="project" data-title="Run AI Locally w/out Internet" data-desc="I'm currently build an Python script that will downloads an AI Model to your machine, extract it and run it for you after installation. But remember what AI Model you were installing or else you will ended up install other AI Model :). Everytime you run the script, just choose the AI Model that you already install and it launch for you, the continue where you left off option is unavalible right now because it still in beta version" data-badge="AI Local"><h3>Run AI Locally w/out Internet</h3><p>Click to see more</p></div>
-    <div class="project" data-title="Hackintosh ACER Aspire V3-571-684" data-desc="I'm currently hackintoshing my ACER Aspire V3-571-6844 and everything is working pretty fine except the battery, it currently fried and the new battery is expensive so i dont want to recover it. It using Hybrid BIOS (legacy BIOS/UEFI) so the hackintosh is pretty easy, as alway I'm using OpenCore over Clover and iBoot. The trackpad is suck because it gesture is not so good. I just upload the efi on GitHub, check it out" data-badge="Hackintosh"><h3>Hackintosh ACER Aspire V3-571-6844</h3><p>Click to see more</p></div>
-    <div class="project" data-title="ThinkBook 14 G4 ABA — Hackintosh" data-desc="A fully optimized Hackintosh build running macOS Tahoe on the Lenovo ThinkBook 14 G4 ABA, powered by an AMD Ryzen 7 5825U. Built on OpenCore 1.0.8, this project achieves full hardware compatibility including Metal GPU acceleration via NootedRed, native multi-touch trackpad support through GPIO interrupt mode, and working audio via AppleALC with an OCLP root patch. Documented with a detailed troubleshooting log covering GPU stability, audio framework changes, and thermal optimization — making it a useful reference for anyone attempting a similar AMD-based Hackintosh build." data-badge="Hackintosh"><h3>Hackintosh on my ThinkBook 14 G4 ABA</h3><p>Click to see more</p></div>
-  </div>
-</section>
+        <h1 id="hero-title" class="hero__title">
+          <span class="line"><span>BUILDING</span></span>
+          <span class="line line--offset">
+            <span>BEYOND</span>
+            <img
+              class="hero__avatar"
+              src="https://avatars.githubusercontent.com/u/197340402?v=4"
+              alt="Ben Nguyen"
+            />
+          </span>
+          <span class="line line--accent"><span>DEFAULTS.</span></span>
+        </h1>
 
-<footer>&copy; 2026 Ben Nguyen • NORD_GLASS_V4</footer>
+        <div class="hero__footer reveal">
+          <p>
+            I’m Ben, a developer who likes taking computers apart—then building
+            them back into operating systems, servers, and useful tools.
+          </p>
+          <a class="scroll-cue magnetic" href="#about" aria-label="Scroll to about section">
+            <span>Scroll to explore</span>
+            <i>↓</i>
+          </a>
+        </div>
 
-<div class="modal" id="projectModal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <h3 id="modalTitle" style="color:var(--nord7); margin-bottom:15px;"></h3>
-    <p id="modalDesc"></p>
-  </div>
-</div>
+        <div class="orb orb--one" aria-hidden="true"></div>
+        <div class="orb orb--two" aria-hidden="true"></div>
+      </section>
 
-<script>
-  const sections = document.querySelectorAll('section');
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('show'); });
-  }, { threshold: 0.1 });
-  sections.forEach(section => observer.observe(section));
+      <section class="marquee" aria-label="Skills">
+        <div class="marquee__track">
+          <span>LINUX</span><i>✳</i><span>OPENCORE</span><i>✳</i>
+          <span>PYTHON</span><i>✳</i><span>NETWORKING</span><i>✳</i>
+          <span>LINUX</span><i>✳</i><span>OPENCORE</span><i>✳</i>
+          <span>PYTHON</span><i>✳</i><span>NETWORKING</span><i>✳</i>
+        </div>
+      </section>
 
-  const projects = document.querySelectorAll('.project');
-  const modal = document.getElementById('projectModal');
-  const modalTitle = document.getElementById('modalTitle');
-  const modalDesc = document.getElementById('modalDesc');
-  const closeBtn = document.querySelector('.close');
+      <section class="about section" id="about">
+        <div class="section__eyebrow reveal">
+          <span>01</span>
+          <span>About</span>
+        </div>
+        <div class="about__layout">
+          <p class="about__lead split-text">
+            Curious about every layer—from the metal to the interface.
+          </p>
+          <div class="about__copy reveal">
+            <p>
+              I’m a student developer based in Portland. I spend my time
+              exploring Linux, programming, networking, server administration,
+              AI, and the less-traveled corners of computer hardware.
+            </p>
+            <p>
+              My projects are hands-on: building an OS, running a home NAS,
+              making unsupported hardware boot macOS, testing network defenses,
+              and writing tools that make complicated setups easier.
+            </p>
+            <a class="text-link magnetic" href="https://github.com/benzenma123" target="_blank" rel="noreferrer">
+              GitHub profile <span>↗</span>
+            </a>
+          </div>
+        </div>
 
-  projects.forEach(proj => {
-    proj.addEventListener('click', () => {
-      modalTitle.textContent = proj.dataset.title;
-      modalDesc.textContent = proj.dataset.desc;
-      modal.style.display = 'flex';
-    });
-  });
+        <div class="stats">
+          <div class="stat reveal"><strong>27</strong><span>Public repositories</span></div>
+          <div class="stat reveal"><strong>1.5+</strong><span>Years building</span></div>
+          <div class="stat reveal"><strong>∞</strong><span>Things left to learn</span></div>
+        </div>
+      </section>
 
-  closeBtn.addEventListener('click', () => modal.style.display = 'none');
-  window.addEventListener('click', (e) => { if(e.target === modal) modal.style.display = 'none'; });
-</script>
-</body>
+      <section class="work section" id="work">
+        <div class="section__eyebrow reveal">
+          <span>02</span>
+          <span>Selected projects</span>
+        </div>
+        <div class="work__heading">
+          <h2 class="split-text">THINGS I’VE<br />BEEN BUILDING.</h2>
+          <p class="reveal">A growing collection of systems, experiments, and deep dives.</p>
+        </div>
+
+        <div class="projects">
+          <a
+            class="project project--featured"
+            href="https://github.com/benzenma123/MikuOS"
+            target="_blank"
+            rel="noreferrer"
+            data-cursor="GITHUB"
+            aria-label="View MikuOS on GitHub"
+          >
+            <div class="project__index">01</div>
+            <div class="project__visual visual-os">
+              <div class="boot-screen" aria-label="Animated MikuOS OpenRC boot sequence">
+                <div class="boot-screen__header">
+                  <span>MIKUOS</span>
+                  <span>OPENRC</span>
+                </div>
+                <div class="boot-screen__output" id="miku-boot-output" aria-hidden="true"></div>
+              </div>
+            </div>
+            <div class="project__info">
+              <span class="project__type">Linux distribution / Arch</span>
+              <h3>MikuOS</h3>
+              <p>An Arch-based Linux distribution featuring KDE Plasma, Miku-inspired branding, a custom Plymouth boot splash, and the Calamares graphical installer.</p>
+              <div class="project__tags"><span>Arch Linux</span><span>KDE Plasma</span><span>Calamares</span></div>
+            </div>
+          </a>
+
+          <article class="project" tabindex="0" data-cursor="VIEW">
+            <div class="project__index">02</div>
+            <div class="project__visual visual-hackintosh">
+              <div class="laptop">
+                <div class="laptop__screen">
+                  <span class="apple-mark">◆</span>
+                  <small>ThinkBook 14 G4 ABA</small>
+                  <div class="dock"><i></i><i></i><i></i><i></i><i></i></div>
+                </div>
+                <div class="laptop__base"></div>
+              </div>
+            </div>
+            <div class="project__info">
+              <span class="project__type">OpenCore / Hardware</span>
+              <h3>AMD Hackintosh</h3>
+              <p>macOS Tahoe on a Ryzen ThinkBook with GPU acceleration, multi-touch, audio, and detailed troubleshooting notes.</p>
+              <div class="project__tags"><span>OpenCore</span><span>NootedRed</span><span>macOS</span></div>
+            </div>
+          </article>
+
+          <article class="project" tabindex="0" data-cursor="VIEW">
+            <div class="project__index">03</div>
+            <div class="project__visual visual-server">
+              <div class="rack">
+                <div><i></i><i></i><span>TRUENAS / ONLINE</span></div>
+                <div><i></i><i></i><span>STORAGE / 78%</span></div>
+                <div><i></i><i></i><span>VM HOST / 04</span></div>
+                <div><i></i><i></i><span>UPTIME / 99.9</span></div>
+              </div>
+            </div>
+            <div class="project__info">
+              <span class="project__type">Infrastructure / Homelab</span>
+              <h3>Home Server</h3>
+              <p>An old PC repurposed into a TrueNAS system for storage, lightweight projects, and virtual machines.</p>
+              <div class="project__tags"><span>TrueNAS</span><span>NAS</span><span>Virtualization</span></div>
+            </div>
+          </article>
+
+          <article class="project" tabindex="0" data-cursor="VIEW">
+            <div class="project__index">04</div>
+            <div class="project__visual visual-firewall">
+              <div class="radar">
+                <span class="radar__sweep"></span>
+                <i class="ping ping--one"></i><i class="ping ping--two"></i><i class="ping ping--three"></i>
+                <b>PACKETS<br />FILTERED</b>
+              </div>
+            </div>
+            <div class="project__info">
+              <span class="project__type">Networking / Security</span>
+              <h3>Firewall Lab</h3>
+              <p>A practical UFW and Firegex setup for learning traffic rules, network exposure, and defensive configuration.</p>
+              <div class="project__tags"><span>UFW</span><span>Firegex</span><span>Linux</span></div>
+            </div>
+          </article>
+
+          <article class="project" tabindex="0" data-cursor="VIEW">
+            <div class="project__index">05</div>
+            <div class="project__visual visual-ai">
+              <div class="ai-core">
+                <span>LOCAL</span>
+                <div></div>
+                <small>NO NETWORK</small>
+              </div>
+            </div>
+            <div class="project__info">
+              <span class="project__type">Python / Local AI</span>
+              <h3>Offline AI Runner</h3>
+              <p>A Python utility that downloads, extracts, and launches local AI models through a simpler guided workflow.</p>
+              <div class="project__tags"><span>Python</span><span>LLM</span><span>Automation</span></div>
+            </div>
+          </article>
+        </div>
+
+        <a class="all-work magnetic" href="https://github.com/benzenma123?tab=repositories" target="_blank" rel="noreferrer">
+          <span>See all repositories</span><i>↗</i>
+        </a>
+      </section>
+
+      <section class="contact section" id="contact">
+        <div class="section__eyebrow section__eyebrow--light reveal">
+          <span>03</span>
+          <span>Contact</span>
+        </div>
+        <p class="contact__kicker reveal">Have an interesting build, idea, or Linux problem?</p>
+        <a class="contact__mail split-text" href="mailto:haidangchauduc@gmail.com">LET’S MAKE<br />IT REAL.</a>
+        <div class="contact__bottom">
+          <div class="contact__socials">
+            <a class="magnetic" href="https://github.com/benzenma123" target="_blank" rel="noreferrer">GitHub ↗</a>
+            <a class="magnetic" href="https://www.reddit.com/user/Critical_Self_6040" target="_blank" rel="noreferrer">Reddit ↗</a>
+            <a class="magnetic" href="https://steamcommunity.com/profiles/76561199824639902/" target="_blank" rel="noreferrer">Steam ↗</a>
+          </div>
+          <a class="back-top magnetic" href="#top"><span>Back to top</span><i>↑</i></a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>© 2026 Ben Nguyen</span>
+      <span>Built with curiosity + plain code</span>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
 </html>
