@@ -1,95 +1,99 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contact - Ben Nguyen</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#d9ff43" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <meta
+      name="description"
+      content="Contact Ben Nguyen — projects, ideas, Linux problems, anything in between."
+    />
+    <title>Contact — Ben Nguyen</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Manrope:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="noise" aria-hidden="true"></div>
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <header class="nav">
+      <a class="nav__brand magnetic" href="index.html" aria-label="Ben Nguyen, home">
+        <span>BN</span><sup>®</sup>
+      </a>
+      <div class="nav__status">
+        <i></i>
+        <span>Portland, OR</span>
+        <time id="local-time">00:00:00</time>
+      </div>
+      <nav aria-label="Main navigation">
+        <a class="nav__link magnetic" href="index.html#about">About</a>
+        <a class="nav__link magnetic" href="index.html#work">Projects</a>
+        <a class="nav__link nav__link--round magnetic" href="mailto:haidangchauduc@gmail.com"
+          >Email <span>↗</span></a
+        >
+      </nav>
+    </header>
 
-<style>
-:root {
-  --nord0: #2e3440; 
-  --nord1: rgba(59, 66, 82, 0.75); 
-  --nord3: rgba(76, 86, 106, 0.4); 
-  --nord4: #d8dee9; 
-  --nord6: #eceff4; 
-  --nord7: #8fbcbb; 
-  --nord8: #88c0d0; 
-  --glass-blur: blur(14px);
-}
+    <main>
+      <section class="contact section contact-page">
+        <div class="section__eyebrow section__eyebrow--light reveal">
+          <span>03</span>
+          <span>Contact</span>
+        </div>
+        <p class="contact__kicker reveal">
+          Have an interesting build, idea, or Linux problem?
+        </p>
+        <a class="contact__mail split-text" data-split="word" href="mailto:haidangchauduc@gmail.com"
+          >LET’S MAKE<br />IT REAL.</a
+        >
+        <div class="contact__bottom">
+          <div class="contact__socials">
+            <a
+              class="magnetic"
+              href="https://github.com/benzenma123"
+              target="_blank"
+              rel="noreferrer"
+              data-cursor="GITHUB"
+              >GitHub ↗</a
+            >
+            <a
+              class="magnetic"
+              href="https://www.reddit.com/user/Critical_Self_6040"
+              target="_blank"
+              rel="noreferrer"
+              data-cursor="REDDIT"
+              >Reddit ↗</a
+            >
+            <a
+              class="magnetic"
+              href="https://steamcommunity.com/profiles/76561199824639902/"
+              target="_blank"
+              rel="noreferrer"
+              data-cursor="STEAM"
+              >Steam ↗</a
+            >
+            <a
+              class="magnetic"
+              href="mailto:haidangchauduc@gmail.com"
+              data-cursor="EMAIL"
+              >Email ↗</a
+            >
+          </div>
+          <a class="back-top magnetic" href="index.html"><span>← Home</span><i>↩</i></a>
+        </div>
+      </section>
+    </main>
 
-* { margin:0; padding:0; box-sizing:border-box; }
+    <footer>
+      <span>© 2026 Ben Nguyen</span>
+      <span>Built with curiosity + plain code + WebGL</span>
+    </footer>
 
-body {
-  font-family: 'Inter', sans-serif;
-  background: radial-gradient(circle at 100% 100%, #3b4252 0%, #2e3440 100%);
-  background-attachment: fixed;
-  color: var(--nord4);
-  display: flex; justify-content: center; align-items: center;
-  min-height: 100vh;
-}
-
-.contact-card {
-  max-width: 500px; width: 90%;
-  background: var(--nord1); backdrop-filter: var(--glass-blur);
-  padding: 50px; border-radius: 24px; border: 1px solid var(--nord3);
-  text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-}
-
-h1 { font-size: 2.5rem; color: var(--nord6); margin-bottom: 10px; }
-p.subtitle { font-family: 'JetBrains Mono', monospace; color: var(--nord8); margin-bottom: 40px; }
-
-.links-grid { display: flex; flex-direction: column; gap: 15px; }
-
-.contact-link {
-  display: flex; align-items: center; justify-content: space-between;
-  background: rgba(46, 52, 64, 0.4); padding: 18px 25px;
-  border-radius: 12px; border: 1px solid var(--nord3);
-  color: var(--nord4); text-decoration: none;
-  font-family: 'JetBrains Mono', monospace; transition: 0.3s;
-}
-
-.contact-link i { font-size: 1.4rem; color: var(--nord7); }
-
-.contact-link:hover {
-  background: rgba(143, 188, 187, 0.1); border-color: var(--nord7);
-  transform: translateX(5px);
-}
-
-.back-btn {
-  margin-top: 40px; display: inline-block;
-  color: var(--nord3); text-decoration: none;
-  font-size: 0.9rem; transition: 0.3s;
-}
-.back-btn:hover { color: var(--nord8); }
-
-</style>
-</head>
-<body>
-
-<div class="contact-card">
-    <h1>Connect</h1>
-    <p class="subtitle">// Socials & Inquiries</p>
-    
-    <div class="links-grid">
-        <a href="https://github.com/benzenma123" class="contact-link" target="_blank">
-            <span>GitHub</span> <i class="fab fa-github"></i>
-        </a>
-        <a href="https://www.reddit.com/user/Critical_Self_6040" class="contact-link" target="_blank">
-            <span>Reddit</span> <i class="fab fa-reddit"></i>
-        </a>
-        <a href="mailto:haidangchauduc@gmail.com" class="contact-link">
-            <span>Email</span> <i class="fas fa-envelope"></i>
-        </a>
-        <a href="https://steamcommunity.com/profiles/76561199824639902/" class="contact-link" target="_blank">
-            <span>Steam</span> <i class="fab fa-steam"></i>
-        </a>
-    </div>
-
-    <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Home</a>
-</div>
-
-</body>
+    <script src="script.js" defer></script>
+  </body>
 </html>

@@ -13,10 +13,26 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Manrope:wght@400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Manrope:wght@400;500;600;700;800;900&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
+
+    <!-- Three.js via importmap -->
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
+        }
+      }
+    </script>
+
+    <!-- GSAP + ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"
+      defer
+    ></script>
   </head>
   <body>
     <div class="loader" aria-hidden="true">
@@ -28,10 +44,24 @@
       <div class="loader__track"><span></span></div>
     </div>
 
+    <div class="scene-bar" aria-hidden="true"></div>
     <div class="noise" aria-hidden="true"></div>
-    <div class="cursor" aria-hidden="true"><span>VIEW</span></div>
+    <div class="vignette" aria-hidden="true"></div>
 
-    <header class="nav">
+    <!-- Scroll progress indicator on the left edge -->
+    <div class="scroll-progress" aria-hidden="true">
+      <div class="scroll-progress__track"></div>
+      <div class="scroll-progress__fill" id="scroll-progress-fill"></div>
+    </div>
+
+    <!-- Two-ring cursor -->
+    <div class="cursor" aria-hidden="true">
+      <div class="cursor__dot"></div>
+      <div class="cursor__ring"></div>
+      <span class="cursor__label">VIEW</span>
+    </div>
+
+    <header class="nav" id="nav">
       <a class="nav__brand magnetic" href="#top" aria-label="Ben Nguyen, home">
         <span>BN</span><sup>®</sup>
       </a>
@@ -43,36 +73,55 @@
       <nav aria-label="Main navigation">
         <a class="nav__link magnetic" href="#about">About</a>
         <a class="nav__link magnetic" href="#work">Projects</a>
-        <a class="nav__link nav__link--round magnetic" href="#contact">Let’s talk <span>↗</span></a>
+        <a class="nav__link nav__link--round magnetic" href="#contact"
+          >Let’s talk <span>↗</span></a
+        >
       </nav>
     </header>
 
     <main id="top">
+      <!-- ============ HERO ============ -->
       <section class="hero" aria-labelledby="hero-title">
-        <div class="hero__meta reveal">
-          <p>Independent developer</p>
-          <p>Systems / Linux / Security</p>
+        <canvas
+          class="hero__3d"
+          id="hero-3d"
+          aria-hidden="true"
+          data-cursor="ROTATE"
+        ></canvas>
+
+        <div class="hero__meta">
+          <span class="reveal"><i>◆</i> Independent developer</span>
+          <span class="reveal">Systems / Linux / Security</span>
         </div>
 
-        <h1 id="hero-title" class="hero__title">
-          <span class="line"><span>BUILDING</span></span>
+        <h1 id="hero-title" class="hero__title" data-split="char" data-cursor="SCROLL">
+          <span class="line">
+            <span class="line__text">BUILDING</span>
+          </span>
           <span class="line line--offset">
-            <span>BEYOND</span>
+            <span class="line__text">BEYOND</span>
             <img
               class="hero__avatar"
               src="https://avatars.githubusercontent.com/u/197340402?v=4"
-              alt="Ben Nguyen"
+              alt=""
+              aria-hidden="true"
             />
           </span>
-          <span class="line line--accent"><span>DEFAULTS.</span></span>
+          <span class="line line--accent">
+            <span class="line__text">DEFAULTS.</span>
+          </span>
         </h1>
 
-        <div class="hero__footer reveal">
-          <p>
+        <div class="hero__footer">
+          <p class="reveal">
             I’m Ben, a developer who likes taking computers apart—then building
             them back into operating systems, servers, and useful tools.
           </p>
-          <a class="scroll-cue magnetic" href="#about" aria-label="Scroll to about section">
+          <a
+            class="scroll-cue magnetic"
+            href="#about"
+            aria-label="Scroll to about section"
+          >
             <span>Scroll to explore</span>
             <i>↓</i>
           </a>
@@ -80,188 +129,426 @@
 
         <div class="orb orb--one" aria-hidden="true"></div>
         <div class="orb orb--two" aria-hidden="true"></div>
-      </section>
 
-      <section class="marquee" aria-label="Skills">
-        <div class="marquee__track">
-          <span>LINUX</span><i>✳</i><span>OPENCORE</span><i>✳</i>
-          <span>PYTHON</span><i>✳</i><span>NETWORKING</span><i>✳</i>
-          <span>LINUX</span><i>✳</i><span>OPENCORE</span><i>✳</i>
-          <span>PYTHON</span><i>✳</i><span>NETWORKING</span><i>✳</i>
+        <div class="hero__corners" aria-hidden="true">
+          <span class="hero__corner hero__corner--tl">PG · 001</span>
+          <span class="hero__corner hero__corner--tr">PORTFOLIO 2026</span>
+          <span class="hero__corner hero__corner--bl">OS · LINUX · SECURITY</span>
+          <span class="hero__corner hero__corner--br">↳ STATIC JS / WEBGL</span>
         </div>
       </section>
 
+      <!-- ============ MARQUEES (3 tracks, masked edges) ============ -->
+      <section class="marquees" aria-label="Skills">
+        <div class="marquee marquee--top">
+          <div class="marquee__track">
+            <span>LINUX</span><i>✳</i><span>OPENCORE</span><i>✳</i>
+            <span>PYTHON</span><i>✳</i><span>NETWORKING</span><i>✳</i>
+            <span>LINUX</span><i>✳</i><span>OPENCORE</span><i>✳</i>
+            <span>PYTHON</span><i>✳</i><span>NETWORKING</span><i>✳</i>
+          </div>
+        </div>
+        <div class="marquee marquee--mid">
+          <div class="marquee__track">
+            <span>DOCKER</span><i>◈</i><span>RUST</span><i>◈</i>
+            <span>BASH</span><i>◈</i><span>SECURITY</span><i>◈</i>
+            <span>DOCKER</span><i>◈</i><span>RUST</span><i>◈</i>
+            <span>BASH</span><i>◈</i><span>SECURITY</span><i>◈</i>
+          </div>
+        </div>
+        <div class="marquee marquee--bot">
+          <div class="marquee__track">
+            <span>HOMELAB</span><i>◇</i><span>HACKINTOSH</span><i>◇</i>
+            <span>OPEN-SOURCE</span><i>◇</i><span>OS DEV</span><i>◇</i>
+            <span>HOMELAB</span><i>◇</i><span>HACKINTOSH</span><i>◇</i>
+            <span>OPEN-SOURCE</span><i>◇</i><span>OS DEV</span><i>◇</i>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ ABOUT ============ -->
       <section class="about section" id="about">
         <div class="section__eyebrow reveal">
           <span>01</span>
           <span>About</span>
         </div>
         <div class="about__layout">
-          <p class="about__lead split-text">
-            Curious about every layer—from the metal to the interface.
-          </p>
-          <div class="about__copy reveal">
-            <p>
+          <h2 class="about__lead" data-split="char">
+            <span class="line"><span class="line__text">Curious about</span></span>
+            <span class="line"><span class="line__text">every layer—from</span></span>
+            <span class="line line--accent"><span class="line__text">the metal</span></span>
+            <span class="line"><span class="line__text">to the interface.</span></span>
+          </h2>
+          <div class="about__copy">
+            <p class="reveal">
               I’m a student developer based in Portland. I spend my time
               exploring Linux, programming, networking, server administration,
               AI, and the less-traveled corners of computer hardware.
             </p>
-            <p>
+            <p class="reveal">
               My projects are hands-on: building an OS, running a home NAS,
               making unsupported hardware boot macOS, testing network defenses,
               and writing tools that make complicated setups easier.
             </p>
-            <a class="text-link magnetic" href="https://github.com/benzenma123" target="_blank" rel="noreferrer">
-              GitHub profile <span>↗</span>
+            <a
+              class="text-link magnetic reveal"
+              href="https://github.com/benzenma123"
+              target="_blank"
+              rel="noreferrer"
+              data-cursor="GITHUB"
+            >
+              <span>↗</span><span>GitHub profile</span>
             </a>
           </div>
         </div>
 
         <div class="stats">
-          <div class="stat reveal"><strong>27</strong><span>Public repositories</span></div>
-          <div class="stat reveal"><strong>1.5+</strong><span>Years building</span></div>
-          <div class="stat reveal"><strong>∞</strong><span>Things left to learn</span></div>
+          <div class="stat"><strong data-count="27">00</strong><span>Public repositories</span></div>
+          <div class="stat"><strong data-count="1.5">00</strong><span>Years building</span></div>
+          <div class="stat"><strong data-static="∞">∞</strong><span>Things left to learn</span></div>
         </div>
       </section>
 
+      <!-- ============ WORK (scrollytelling) ============ -->
       <section class="work section" id="work">
         <div class="section__eyebrow reveal">
           <span>02</span>
           <span>Selected projects</span>
         </div>
+
         <div class="work__heading">
-          <h2 class="split-text">THINGS I’VE<br />BEEN BUILDING.</h2>
-          <p class="reveal">A growing collection of systems, experiments, and deep dives.</p>
+          <h2 data-split="char" class="split-char">
+            <span class="line"><span class="line__text">THINGS</span></span>
+            <span class="line"><span class="line__text">I’VE BEEN</span></span>
+            <span class="line line--accent"><span class="line__text">BUILDING.</span></span>
+          </h2>
+          <p class="work__kicker reveal">
+            <span>Five ongoing builds covering</span>
+            <span class="soft">systems, security,</span>
+            <span class="soft">and infrastructure.</span>
+          </p>
         </div>
 
         <div class="projects">
-          <a
-            class="project project--featured"
-            href="https://github.com/benzenma123/MikuOS"
-            target="_blank"
-            rel="noreferrer"
-            data-cursor="GITHUB"
-            aria-label="View MikuOS on GitHub"
+          <article
+            class="project project--featured tilt"
+            data-demo="terminal"
+            aria-label="MikuOS interactive terminal demo"
           >
             <div class="project__index">01</div>
-            <div class="project__visual visual-os">
-              <div class="boot-screen" aria-label="Animated MikuOS OpenRC boot sequence">
-                <div class="boot-screen__header">
+            <div class="project__visual visual-os" data-cursor="TRY">
+              <span class="demo-badge">▶ TRY IT</span>
+              <div class="terminal" data-state="boot">
+                <div class="terminal__header">
                   <span>MIKUOS</span>
-                  <span>OPENRC</span>
+                  <span>OPENRC · TTY1</span>
                 </div>
-                <div class="boot-screen__output" id="miku-boot-output" aria-hidden="true"></div>
+                <div class="terminal__output" id="miku-boot-output"></div>
+                <div class="terminal__hint">CLICK TO TYPE</div>
+                <form class="terminal__input-row" data-state="hidden">
+                  <span class="terminal__prompt">root@mikuos:~#</span>
+                  <input
+                    class="terminal__input"
+                    type="text"
+                    aria-label="Terminal command"
+                    autocomplete="off"
+                    spellcheck="false"
+                    placeholder="type 'help' and ⏎"
+                  />
+                </form>
               </div>
             </div>
             <div class="project__info">
               <span class="project__type">Linux distribution / Arch</span>
               <h3>MikuOS</h3>
-              <p>An Arch-based Linux distribution featuring KDE Plasma, Miku-inspired branding, a custom Plymouth boot splash, and the Calamares graphical installer.</p>
-              <div class="project__tags"><span>Arch Linux</span><span>KDE Plasma</span><span>Calamares</span></div>
+              <p>
+                An Arch-based Linux distribution featuring KDE Plasma,
+                Miku-inspired branding, a custom Plymouth boot splash, and
+                the Calamares graphical installer.
+              </p>
+              <div class="project__tags">
+                <span>Arch Linux</span><span>KDE Plasma</span><span>Calamares</span>
+              </div>
+              <a class="btn-link magnetic" href="https://github.com/benzenma123/MikuOS" target="_blank" rel="noreferrer" data-cursor="REPO">
+                <span>VIEW REPO</span><i>↗</i>
+              </a>
             </div>
-          </a>
+          </article>
 
-          <article class="project" tabindex="0" data-cursor="VIEW">
+          <article class="project tilt" data-demo="desktop" tabindex="0">
             <div class="project__index">02</div>
-            <div class="project__visual visual-hackintosh">
-              <div class="laptop">
-                <div class="laptop__screen">
-                  <span class="apple-mark">◆</span>
-                  <small>ThinkBook 14 G4 ABA</small>
-                  <div class="dock"><i></i><i></i><i></i><i></i><i></i></div>
+            <div class="project__visual visual-hackintosh" data-cursor="TRY">
+              <span class="demo-badge">▶ TRY IT</span>
+              <div class="macos">
+                <div class="macos__menubar">
+                  <span class="macos__apple" aria-label="Apple menu">◆</span>
+                  <span class="macos__applabel" data-macos-applabel>Finder</span>
+                  <div class="macos__menuitems"><span>File</span><span>Edit</span><span>View</span><span>Go</span><span>Window</span><span>Help</span></div>
+                  <div class="macos__status">
+                    <i class="macos__wifi" aria-hidden="true">▮</i>
+                    <span class="macos__clock" data-macos-clock>--:--</span>
+                  </div>
                 </div>
-                <div class="laptop__base"></div>
+                <div class="macos__wallpaper"></div>
+                <button class="macos__app" data-app="finder" aria-label="Open Finder"><span>📁</span></button>
+                <button class="macos__app" data-app="terminal" aria-label="Open Terminal"><span>▶</span></button>
+                <button class="macos__app" data-app="notes" aria-label="Open Notes"><span>≡</span></button>
+                <button class="macos__app" data-app="about" aria-label="Open About"><span>ⓘ</span></button>
+                <div class="macos__windows" data-state="empty" aria-live="polite"></div>
               </div>
             </div>
             <div class="project__info">
               <span class="project__type">OpenCore / Hardware</span>
               <h3>AMD Hackintosh</h3>
-              <p>macOS Tahoe on a Ryzen ThinkBook with GPU acceleration, multi-touch, audio, and detailed troubleshooting notes.</p>
-              <div class="project__tags"><span>OpenCore</span><span>NootedRed</span><span>macOS</span></div>
+              <p>
+                macOS Tahoe on a Ryzen ThinkBook with GPU acceleration,
+                multi-touch, audio, and detailed troubleshooting notes.
+              </p>
+              <div class="project__tags">
+                <span>OpenCore</span><span>NootedRed</span><span>macOS</span>
+              </div>
+              <a class="btn-link magnetic" href="https://github.com/benzenma123" target="_blank" rel="noreferrer" data-cursor="REPO">
+                <span>READ NOTES</span><i>↗</i>
+              </a>
             </div>
           </article>
 
-          <article class="project" tabindex="0" data-cursor="VIEW">
+          <article class="project tilt" data-demo="server" tabindex="0">
             <div class="project__index">03</div>
-            <div class="project__visual visual-server">
-              <div class="rack">
-                <div><i></i><i></i><span>TRUENAS / ONLINE</span></div>
-                <div><i></i><i></i><span>STORAGE / 78%</span></div>
-                <div><i></i><i></i><span>VM HOST / 04</span></div>
-                <div><i></i><i></i><span>UPTIME / 99.9</span></div>
+            <div class="project__visual visual-server" data-cursor="TRY" data-mode="rack">
+              <span class="demo-badge">▶ TRY IT</span>
+              <svg class="rack-wires" aria-hidden="true"></svg>
+              <div class="real-rack">
+                <button class="real-rack__unit" data-unit="storage" data-on="false" aria-label="Toggle Storage Server">
+                  <div class="chassis">
+                    <span class="chassis__label">STRG-01</span>
+                    <div class="chassis__lcd">OFFLINE</div>
+                    <div class="chassis__bays"><i></i><i></i><i></i><i></i></div>
+                    <div class="chassis__leds"><i class="led-pwr"></i><i class="led-net"></i></div>
+                  </div>
+                </button>
+                <button class="real-rack__unit" data-unit="network" data-on="false" aria-label="Toggle Network Server">
+                  <div class="chassis">
+                    <span class="chassis__label">NET-FW</span>
+                    <div class="chassis__lcd">OFFLINE</div>
+                    <div class="chassis__bays"><i></i><i></i></div>
+                    <div class="chassis__leds"><i class="led-pwr"></i><i class="led-net"></i><i class="led-act"></i></div>
+                  </div>
+                </button>
+                <button class="real-rack__unit" data-unit="compute" data-on="false" aria-label="Toggle Compute Server">
+                  <div class="chassis">
+                    <span class="chassis__label">COMP-01</span>
+                    <div class="chassis__lcd">OFFLINE</div>
+                    <div class="chassis__bays"><i></i><i></i><i></i><i></i></div>
+                    <div class="chassis__leds"><i class="led-pwr"></i><i class="led-net"></i></div>
+                  </div>
+                </button>
+                <button class="real-rack__unit" data-unit="backup" data-on="false" aria-label="Toggle Backup Server">
+                  <div class="chassis">
+                    <span class="chassis__label">BAK-NAS</span>
+                    <div class="chassis__lcd">OFFLINE</div>
+                    <div class="chassis__bays"><i></i><i></i></div>
+                    <div class="chassis__leds"><i class="led-pwr"></i><i class="led-net"></i></div>
+                  </div>
+                </button>
+              </div>
+              <div class="dot-board">
+                <div class="dot-board__hint">Click a node → click another → wire them. Toggle services on to enable data flow.</div>
+                <button class="dot-node dot-node--server" data-node="storage" data-on="true">NAS &middot; STRG</button>
+                <button class="dot-node dot-node--server" data-node="network" data-on="true">Gateway &middot; NET</button>
+                <button class="dot-node dot-node--server" data-node="compute" data-on="true">DockerHost &middot; COMP</button>
+                <button class="dot-node dot-node--server" data-node="backup" data-on="true">Snap &middot; BAK</button>
+                <button class="dot-node dot-node--service" data-node="truenas" data-on="false">
+                  <b>TrueNAS</b><small>Storage &amp; SMB</small>
+                </button>
+                <button class="dot-node dot-node--service" data-node="plex" data-on="false">
+                  <b>Plex</b><small>Media server</small>
+                </button>
+                <button class="dot-node dot-node--service" data-node="pihole" data-on="false">
+                  <b>Pi-hole</b><small>DNS sinkhole</small>
+                </button>
+                <button class="dot-node dot-node--service" data-node="homeassistant" data-on="false">
+                  <b>HomeAssist</b><small>IoT automation</small>
+                </button>
+                <button class="dot-node dot-node--service" data-node="wireguard" data-on="false">
+                  <b>WireGuard</b><small>VPN tunnel</small>
+                </button>
+                <button class="dot-node dot-node--service" data-node="grafana" data-on="false">
+                  <b>Grafana</b><small>Metrics + alerts</small>
+                </button>
               </div>
             </div>
             <div class="project__info">
               <span class="project__type">Infrastructure / Homelab</span>
               <h3>Home Server</h3>
-              <p>An old PC repurposed into a TrueNAS system for storage, lightweight projects, and virtual machines.</p>
-              <div class="project__tags"><span>TrueNAS</span><span>NAS</span><span>Virtualization</span></div>
+              <p>
+                An old PC repurposed into a TrueNAS system for storage,
+                lightweight projects, and virtual machines. Power each
+                service, wire them together, run the stack.
+              </p>
+              <div class="project__tags">
+                <span>TrueNAS</span><span>NAS</span><span>Virtualization</span>
+              </div>
+              <a class="btn-link magnetic" href="https://github.com/benzenma123" target="_blank" rel="noreferrer" data-cursor="REPO">
+                <span>READ NOTES</span><i>↗</i>
+              </a>
             </div>
           </article>
 
-          <article class="project" tabindex="0" data-cursor="VIEW">
+          <article class="project tilt" data-demo="firewall" tabindex="0">
             <div class="project__index">04</div>
-            <div class="project__visual visual-firewall">
+            <div class="project__visual visual-firewall" data-cursor="TRY">
+              <span class="demo-badge">▶ TRY IT</span>
               <div class="radar">
                 <span class="radar__sweep"></span>
                 <i class="ping ping--one"></i><i class="ping ping--two"></i><i class="ping ping--three"></i>
-                <b>PACKETS<br />FILTERED</b>
+                <b data-radar-label>PACKETS<br />FILTERED</b>
+                <button class="radar__scan" data-action="scan" aria-label="Run virus scan">
+                  <span data-scan-label>SCAN</span>
+                </button>
+              </div>
+              <div class="firewall__log" data-state="idle" aria-live="polite">
+                <header><span>// PACKET LOG</span><span data-firewall-counter>0 BLOCKED</span></header>
+                <ul></ul>
               </div>
             </div>
             <div class="project__info">
               <span class="project__type">Networking / Security</span>
               <h3>Firewall Lab</h3>
-              <p>A practical UFW and Firegex setup for learning traffic rules, network exposure, and defensive configuration.</p>
-              <div class="project__tags"><span>UFW</span><span>Firegex</span><span>Linux</span></div>
+              <p>
+                A practical UFW and Firegex setup for learning traffic rules,
+                network exposure, and defensive configuration.
+              </p>
+              <div class="project__tags">
+                <span>UFW</span><span>Firegex</span><span>Linux</span>
+              </div>
+              <a class="btn-link magnetic" href="https://github.com/benzenma123" target="_blank" rel="noreferrer" data-cursor="REPO">
+                <span>READ NOTES</span><i>↗</i>
+              </a>
             </div>
           </article>
 
-          <article class="project" tabindex="0" data-cursor="VIEW">
+          <article class="project tilt" data-demo="chat" tabindex="0">
             <div class="project__index">05</div>
-            <div class="project__visual visual-ai">
-              <div class="ai-core">
-                <span>LOCAL</span>
-                <div></div>
-                <small>NO NETWORK</small>
+            <div class="project__visual visual-ai" data-cursor="TRY">
+              <span class="demo-badge">▶ TRY IT</span>
+              <div class="chat" data-state="active">
+                <header class="chat__header">
+                  <span><span class="chat__dot"></span> MIKU AI · OFFLINE · v0.1</span>
+                  <span class="chat__ping" data-chat-ping aria-hidden="true">●</span>
+                </header>
+                <div class="chat__messages" id="ai-chat-messages" aria-live="polite"></div>
+                <div class="chat__chips" role="toolbar" aria-label="Suggested prompts">
+                  <button class="chat__chip" data-msg="Tell me about MikuOS">Tell me about MikuOS</button>
+                  <button class="chat__chip" data-msg="What's your stack?">What's your stack?</button>
+                  <button class="chat__chip" data-msg="What's next?">What's next?</button>
+                </div>
               </div>
             </div>
             <div class="project__info">
               <span class="project__type">Python / Local AI</span>
               <h3>Offline AI Runner</h3>
-              <p>A Python utility that downloads, extracts, and launches local AI models through a simpler guided workflow.</p>
-              <div class="project__tags"><span>Python</span><span>LLM</span><span>Automation</span></div>
+              <p>
+                A Python utility that downloads, extracts, and launches local
+                AI models through a simpler guided workflow.
+              </p>
+              <div class="project__tags">
+                <span>Python</span><span>LLM</span><span>Automation</span>
+              </div>
+              <a class="btn-link magnetic" href="https://github.com/benzenma123" target="_blank" rel="noreferrer" data-cursor="REPO">
+                <span>READ NOTES</span><i>↗</i>
+              </a>
             </div>
           </article>
         </div>
 
-        <a class="all-work magnetic" href="https://github.com/benzenma123?tab=repositories" target="_blank" rel="noreferrer">
-          <span>See all repositories</span><i>↗</i>
+        <a
+          class="all-work magnetic"
+          href="https://github.com/benzenma123?tab=repositories"
+          target="_blank"
+          rel="noreferrer"
+          data-cursor="ALL"
+        >
+          <span>See all <em>27</em> repositories</span><i>↗</i>
         </a>
       </section>
 
+      <!-- ============ CONTACT ============ -->
       <section class="contact section" id="contact">
         <div class="section__eyebrow section__eyebrow--light reveal">
           <span>03</span>
           <span>Contact</span>
         </div>
-        <p class="contact__kicker reveal">Have an interesting build, idea, or Linux problem?</p>
-        <a class="contact__mail split-text" href="mailto:haidangchauduc@gmail.com">LET’S MAKE<br />IT REAL.</a>
+        <p class="contact__kicker reveal">
+          Have an interesting build, idea, or Linux problem?
+        </p>
+        <a
+          class="contact__mail"
+          data-split="char"
+          href="mailto:haidangchauduc@gmail.com"
+          data-cursor="EMAIL"
+        >
+          <span class="line"><span class="line__text">LET’S MAKE</span></span>
+          <span class="line"><span class="line__text">IT REAL.</span></span>
+        </a>
         <div class="contact__bottom">
           <div class="contact__socials">
-            <a class="magnetic" href="https://github.com/benzenma123" target="_blank" rel="noreferrer">GitHub ↗</a>
-            <a class="magnetic" href="https://www.reddit.com/user/Critical_Self_6040" target="_blank" rel="noreferrer">Reddit ↗</a>
-            <a class="magnetic" href="https://steamcommunity.com/profiles/76561199824639902/" target="_blank" rel="noreferrer">Steam ↗</a>
+            <a
+              class="magnetic"
+              href="https://github.com/benzenma123"
+              target="_blank"
+              rel="noreferrer"
+              data-cursor="GITHUB"
+              >Github <span>↗</span></a
+            >
+            <a
+              class="magnetic"
+              href="https://www.reddit.com/user/Critical_Self_6040"
+              target="_blank"
+              rel="noreferrer"
+              data-cursor="REDDIT"
+              >Reddit <span>↗</span></a
+            >
+            <a
+              class="magnetic"
+              href="https://steamcommunity.com/profiles/76561199824639902/"
+              target="_blank"
+              rel="noreferrer"
+              data-cursor="STEAM"
+              >Steam <span>↗</span></a
+            >
           </div>
-          <a class="back-top magnetic" href="#top"><span>Back to top</span><i>↑</i></a>
+          <a class="back-top magnetic" href="#top" data-cursor="TOP"
+            ><span>Back to top</span><i>↑</i></a
+          >
         </div>
       </section>
     </main>
 
-    <footer>
-      <span>© 2026 Ben Nguyen</span>
-      <span>Built with curiosity + plain code</span>
+    <footer class="footer">
+      <div class="footer__brand">
+        <span>BN®</span>
+        <span>PORTFOLIO / 2026</span>
+      </div>
+      <div class="footer__statement">
+        Hands-on. Curious. Patient at terminals.
+        <span class="footer__small">/ Designed + built with vanilla code, GSAP, and WebGL.</span>
+      </div>
+      <div class="footer__meta">
+        <span>© 2026 Ben Nguyen</span>
+        <a class="magnetic" href="mailto:haidangchauduc@gmail.com" data-cursor="EMAIL"
+          >haidangchauduc@gmail.com <i>↗</i></a
+        >
+      </div>
     </footer>
 
-    <script src="script.js"></script>
+    <!-- Three.js scene (module, deferred) -->
+    <script type="module" src="three-scene.js"></script>
+
+    <!-- Interactive project demos (vanilla JS, deferred) -->
+    <script src="interactions.js" defer></script>
+
+<!-- Main script (depends on GSAP from above) -->
+<script src="script.js?v=2" defer></script>
   </body>
 </html>

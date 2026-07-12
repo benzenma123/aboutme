@@ -1,79 +1,195 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>404 - Connection Terminated</title>
-    <link href="https://fonts.googleapis.com/css?family=Arvo" rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#d9ff43" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <meta name="description" content="Lost the route. Reconnect." />
+    <title>404 — Route not found</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Manrope:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
     <style>
-        /* Exact styles from your provided code snippet */
-        .page_404 {
-            padding: 40px 0; 
-            background: #fff; 
-            font-family: 'Arvo', serif;
-        }
+      /* Page-local 404 styling — all in the same design language as the main site */
+      .notfound {
+        min-height: 100svh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 110px 4vw 60px;
+        background: var(--ink);
+        color: var(--paper);
+        position: relative;
+        overflow: hidden;
+        isolation: isolate;
+      }
+      .notfound::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        background:
+          radial-gradient(circle at 20% 80%, var(--acid) 0, transparent 35%),
+          radial-gradient(circle at 80% 20%, var(--orange) 0, transparent 30%);
+        opacity: .12;
+        animation: notfound-breathe 8s ease-in-out infinite;
+      }
+      @keyframes notfound-breathe { 50% { opacity: .2; } }
+      .notfound__crumb {
+        font: 500 11px/1 var(--mono);
+        text-transform: uppercase;
+        letter-spacing: .1em;
+        opacity: .65;
+      }
+      .notfound__title {
+        margin: 24px 0 8px;
+        font-size: clamp(7rem, 22vw, 22rem);
+        font-weight: 800;
+        line-height: .68;
+        letter-spacing: -.085em;
+        color: var(--acid);
+      }
+      .notfound__title em {
+        color: var(--orange);
+        font-style: italic;
+      }
+      .notfound__sub {
+        margin: 0;
+        font: 400 12px/1.5 var(--mono);
+        text-transform: uppercase;
+        opacity: .75;
+      }
+      .notfound__term {
+        margin: 56px 0 0;
+        padding: 24px 28px;
+        border: 1px solid rgba(242, 240, 232, .2);
+        border-radius: 8px;
+        background: rgba(217, 255, 67, .04);
+        font: 400 clamp(11px, 1vw, 14px)/1.65 var(--mono);
+        color: rgba(242, 240, 232, .85);
+        max-width: 560px;
+      }
+      .notfound__term span {
+        color: var(--acid);
+      }
+      .notfound__term span.warn {
+        color: var(--orange);
+      }
+      .notfound__term i {
+        display: block;
+        font-style: normal;
+        color: var(--acid);
+      }
+      .notfound__term i::before {
+        content: "▸ ";
+      }
+      .notfound__term i::after {
+        content: "_";
+        margin-left: 4px;
+        animation: notfound-blink 1s steps(2) infinite;
+      }
+      @keyframes notfound-blink { 50% { opacity: 0; } }
+      .notfound__bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-top: 80px;
+        padding-top: 24px;
+        border-top: 1px solid rgba(242, 240, 232, .2);
+      }
+      .notfound__cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 16px;
+        padding: 14px 22px;
+        border: 1px solid var(--acid);
+        border-radius: 100px;
+        color: var(--acid);
+        font: 600 13px/1 var(--mono);
+        text-transform: uppercase;
+        letter-spacing: .08em;
+        transition: background .25s var(--easing), color .25s var(--easing);
+      }
+      .notfound__cta:hover {
+        background: var(--acid);
+        color: var(--ink);
+      }
+      .notfound__meta {
+        text-align: right;
+        font: 400 10px/1.4 var(--mono);
+        text-transform: uppercase;
+        opacity: .55;
+      }
+      .notfound__meta strong {
+        display: block;
+        font: 700 22px/.9 var(--sans);
+        color: var(--paper);
+        letter-spacing: -.04em;
+      }
 
-        .four_zero_four_bg {
-            /* Using the exact image URL from your source */
-            background-image: url(https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif);
-            height: 400px;
-            background-position: center;
-            
-            /* FIX: Prevents the image from repeating 3 times */
-            background-repeat: no-repeat;
-            background-size: contain; 
-            
-            position: relative;
-            text-align: center;
-        }
-
-        .four_zero_four_bg h1 {
-            font-size: 80px;
-            margin: 0;
-        }
-
-        @keyframes bonk-animation {
-            0%, 70% { transform: rotate(45deg); opacity: 0; }
-            80% { transform: rotate(45deg); opacity: 1; }
-            90% { transform: rotate(-20deg); opacity: 1; } /* The Bonk */
-            100% { transform: rotate(-20deg); opacity: 0; }
-        }
-
-        /* Text and Button Styles from your screenshot */
-        .content_box_404 {
-            margin-top: -50px;
-            text-align: center;
-        }
-
-        .link_404 {
-            color: #fff !important;
-            padding: 10px 20px;
-            background: #39ac31; /* Green button from the video */
-            margin: 20px 0;
-            display: inline-block;
-            text-decoration: none;
-            border-radius: 5px;
-        }
-
-        .text-center { text-align: center; }
+      @media (max-width: 700px) {
+        .notfound__bottom { flex-direction: column; align-items: flex-start; gap: 32px; }
+        .notfound__meta { text-align: left; }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body class="notfound-page">
+    <div class="noise" aria-hidden="true"></div>
 
-    <section class="page_404">
-        <div class="text-center">
-            <div class="four_zero_four_bg">
-                <h1>404</h1>
-                <div class="hammer"></div>
-            </div>
+    <header class="nav">
+      <a class="nav__brand magnetic" href="index.html" aria-label="Ben Nguyen, home">
+        <span>BN</span><sup>®</sup>
+      </a>
+      <div class="nav__status">
+        <i></i>
+        <span>Portland, OR</span>
+        <time id="local-time">00:00:00</time>
+      </div>
+      <nav aria-label="Main navigation">
+        <a class="nav__link" href="index.html#about">About</a>
+        <a class="nav__link" href="index.html#work">Projects</a>
+        <a class="nav__link nav__link--round magnetic" href="mailto:haidangchauduc@gmail.com"
+          >Email <span>↗</span></a
+        >
+      </nav>
+    </header>
 
-            <div class="content_box_404">
-                <h3>Look like you're lost</h3>
-                <p>The caveman is eating the fiber cable. <br>
-                Good luck try to restore your connection.</p>
-                <a href="/" class="link_404">Go to Home</a>
-            </div>
+    <main class="notfound">
+      <div class="notfound__crumb reveal">/ status / error / 404</div>
+      <h1 class="notfound__title reveal"><em>404</em></h1>
+      <p class="notfound__sub reveal">Route not found · Hand-shake terminated mid-stream</p>
+
+      <div class="notfound__term reveal">
+        <i>traceroute 000.is-a.dev</i>
+        <span class="warn">×</span> hop 4: <strong>tcp reset</strong> — destination unreachable<br />
+        <span class="warn">×</span> hop 6: <strong>no response</strong> — connection timed out<br />
+        <span class="warn">!</span> diagnostics: the packet you sent landed somewhere it shouldn’t. I’d investigate, but I’m busy patching servers.<br />
+        <span>→</span> <strong style="color: var(--acid);">suggestion:</strong> head back home before the network notices.
+      </div>
+
+      <div class="notfound__bottom">
+        <a class="notfound__cta magnetic" href="index.html" data-cursor="HOME">
+          <span>Back to home</span><span>↩</span>
+        </a>
+        <div class="notfound__meta">
+          <strong>404</strong>
+          / STATUS / FAIL<br />
+          UPTIME / YOURS EXPLORES<br />
+          LAST GOOD / INDEX.HTML
         </div>
-    </section>
+      </div>
+    </main>
 
-</body>
+    <footer>
+      <span>© 2026 Ben Nguyen</span>
+      <span>Built with curiosity + plain code + WebGL</span>
+    </footer>
+
+    <script src="script.js" defer></script>
+  </body>
 </html>
